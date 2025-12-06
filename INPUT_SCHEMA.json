@@ -1,0 +1,105 @@
+{
+  "title": "Reddit HTML scraper input",
+  "description": "Scrape Reddit search results and posts for quotes by keywords.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "keywords": {
+      "title": "Keywords",
+      "type": "array",
+      "description": "List of keywords/phrases to search for.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "editor": "stringList"
+    },
+    "subreddits": {
+      "title": "Subreddits",
+      "type": "array",
+      "description": "Optional subreddits to restrict the search to (without r/ prefix). Leave empty to search all Reddit.",
+      "items": {
+        "type": "string"
+      },
+      "editor": "stringList"
+    },
+    "countries": {
+      "title": "Countries filter",
+      "type": "array",
+      "description": "Country codes to keep. ID=Indonesia, US=USA, MX=Mexico, AR=Argentina, CL=Chile, CO=Colombia.",
+      "items": {
+        "type": "string",
+        "enum": ["ID", "US", "MX", "AR", "CL", "CO"]
+      },
+      "default": ["ID", "US", "MX", "AR", "CL", "CO"],
+      "editor": "select"
+    },
+    "maxPostsPerKeyword": {
+      "title": "Max posts per keyword",
+      "type": "integer",
+      "minimum": 1,
+      "default": 50,
+      "description": "Maximum posts to crawl per keyword (and per subreddit, if provided)."
+    },
+    "minScore": {
+      "title": "Minimum score",
+      "type": "integer",
+      "default": 0,
+      "description": "Skip posts/comments with score lower than this."
+    },
+    "minTextLength": {
+      "title": "Minimum text length",
+      "type": "integer",
+      "default": 50,
+      "description": "Skip quotes shorter than this number of characters."
+    },
+    "headless": {
+      "title": "Headless browser",
+      "type": "boolean",
+      "default": true,
+      "description": "Run browser in headless mode."
+    },
+    "googleServiceAccountKey": {
+      "title": "Google service account key (JSON string)",
+      "type": "string",
+      "description": "Полный JSON сервис-аккаунта (как строка). Обязательно, если пишем в Google Sheets.",
+      "editor": "textarea"
+    },
+    "spreadsheetId": {
+      "title": "Google Spreadsheet ID",
+      "type": "string",
+      "description": "ID таблицы (часть URL между /d/ и /edit).",
+      "editor": "textfield"
+    },
+    "sheetName": {
+      "title": "Sheet name",
+      "type": "string",
+      "default": "Sheet1",
+      "description": "Имя листа (вкладки) в таблице.",
+      "editor": "textfield"
+    },
+    "useApifyProxy": {
+      "title": "Use Apify proxy",
+      "type": "boolean",
+      "default": true,
+      "description": "Включить Apify Proxy (рекомендуется для Reddit)."
+    },
+    "proxyGroups": {
+      "title": "Proxy groups",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["RESIDENTIAL"],
+      "description": "Группы прокси (например RESIDENTIAL).",
+      "editor": "stringList"
+    },
+    "testMode": {
+      "title": "Test Mode",
+      "type": "boolean",
+      "default": false,
+      "description": "If true, restricts keywords to 'clases de programación para niños' and subreddits to 'chile' for quick testing."
+    }
+  },
+  "required": ["keywords"]
+}
