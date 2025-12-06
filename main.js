@@ -546,8 +546,11 @@ await Actor.main(async () => {
                     continue;
                 }
 
-                // Используем ключ из поиска, либо ищем вхождение
-                const matchedKeyword = containsKeyword(candidate.text, keywordMatchers) || keyword;
+                // Строго проверяем: ключевое слово ДОЛЖНО быть в тексте
+                const matchedKeyword = containsKeyword(candidate.text, keywordMatchers);
+                if (!matchedKeyword) {
+                    continue; // Пропускаем если ключ не найден в тексте
+                }
 
                 const lang = detectLanguage(candidate.text);
                 const country = inferCountry(postSubreddit, lang);
